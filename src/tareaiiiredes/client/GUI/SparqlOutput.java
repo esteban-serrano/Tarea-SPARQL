@@ -25,16 +25,11 @@ public class SparqlOutput extends javax.swing.JFrame {
     private long totalTime;
     
     /** Creates new form SparqlOutput */
-    public SparqlOutput(String url, String query, long t, ResultSet result) {
+    public SparqlOutput(String url, String query, long time, ResultSet result) {
         this.r = result;
         this.url = url;
         this.query = query;
-        this.totalTime = t;
-        
-        if(result == null)
-        {
-            System.out.println("result es null. *troll*");
-        }
+        this.totalTime = time;
         
         initComponents();
     }
