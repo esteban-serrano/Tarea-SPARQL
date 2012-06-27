@@ -159,13 +159,11 @@ public class SparqlClientn extends javax.swing.JFrame {
         String host=mEndpointTextField.getText();
         String query=mqueryTextArea.getText();
         try {
+            long startTime = System.currentTimeMillis();
             ResultSet rs = QueryRemoteSparql.getResults(host, query);
-            while (rs.hasNext()) {
-                String a=rs.next().toString();
-                int init=a.indexOf("<")+1;
-                int end=a.indexOf(">");
-                System.out.println(a.substring(init, end));
-            }
+            long totalTime1 = System.currentTimeMillis() - startTime;
+            SparqlOutput outputwindow= new SparqlOutput(host,query,totalTime1,rs);
+            outputwindow.show();
         } catch (Exception e1) {
             System.out.println("---INICIO Mensaje de excepción---");
             System.console().printf(e1.toString());
