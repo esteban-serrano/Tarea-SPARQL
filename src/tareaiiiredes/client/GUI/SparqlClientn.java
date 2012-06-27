@@ -26,24 +26,24 @@ public class SparqlClientn extends javax.swing.JFrame {
         initComponents();
         //Consulta ejemplo
         mqueryTextArea.setText
-                (   "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-                    +"SELECT ?pais\n"
+                (   "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n"
+                    +"SELECT ?pais\r\n"
                     +"WHERE {?pais rdf:type <http://dbpedia.org/ontology/Country>}"
                 );
         mEndpointTextField.setText("http://dbpedia.org/sparql");
         
         ipanel p= new ipanel("CFMatrix.jpg");
         this.add(p,BorderLayout.CENTER);
-        jComboBox2.addItem("RDF/XML");
-        jComboBox2.addItem("JSON");
-        jComboBox2.addItem("HTML");
-        jComboBox2.addItem("Spreadsheet");
-        jComboBox2.addItem("XML");
-        jComboBox2.addItem("JSON");
-        jComboBox2.addItem("Javascript");
-        jComboBox2.addItem("Ntriples");
+        
         jComboBox2.addItem("CSV");
+        jComboBox2.addItem("HTML");
+        jComboBox2.addItem("Javascript");
+        jComboBox2.addItem("JSON");
+        jComboBox2.addItem("Ntriples");
+        jComboBox2.addItem("RDF/XML");
+        jComboBox2.addItem("Spreadsheet");
         jComboBox2.addItem("TSV");
+        jComboBox2.addItem("XML");
     }
    
     /**
@@ -169,9 +169,7 @@ public class SparqlClientn extends javax.swing.JFrame {
                 outputwindow.setVisible(true);
             }
             else
-            {
                 System.out.println("ResultSet vacío.");
-            }
         } catch (Exception e1) {
             System.out.println("---INICIO Mensaje de excepción---");
             System.console().printf(e1.toString());
