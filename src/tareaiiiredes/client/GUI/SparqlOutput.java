@@ -18,23 +18,37 @@ import com.hp.hpl.jena.query.*;
  */
 public class SparqlOutput extends javax.swing.JFrame {
 
+    /** Atributos */
+    private ResultSet r;
+    private String url;
+    private String query;
+    private long totalTime;
+    
     /** Creates new form SparqlOutput */
     public SparqlOutput(String url, String query, long t, ResultSet result) {
         initComponents();
-        textAreaConsulta.setText(query);
-        System.out.println("Formateando el resultado...");
-        textAreaResultado.setText(resultToString(result));
-        System.out.println("Formato listo.");
-        textFieldTiempoTotalEj.setText(t + " ms");
-        textFieldURL.setText(url);
+        
+        this.r = result;
+        this.url = url;
+        this.query = query;
+        this.totalTime = t;
+        
+        textAreaConsulta.setText(this.query);
+        textFieldTiempoTotalEj.setText(this.totalTime + " ms");
+        textFieldURL.setText(this.url);
     }
 
     private String resultToString(ResultSet r) {
-        String output = "";
+        StringBuilder builder = new StringBuilder();
         while (r.hasNext()) {
-            output = output + r.next().toString() + "\r\n";
+            builder.append(r.next().toString()).append("\r\n");
         }
-        return output;
+        return builder.toString();
+    }
+    
+    public void showFormattedResult(){
+        textAreaResultado.setText("Formateando el resultado...");
+        textAreaResultado.setText(resultToString(this.r));
     }
 
     /** This method is called from within the constructor to

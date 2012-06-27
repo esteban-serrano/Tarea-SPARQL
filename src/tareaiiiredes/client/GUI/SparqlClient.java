@@ -151,7 +151,9 @@ public class SparqlClient extends JFrame {
                         long time = System.currentTimeMillis() - startTime;
                         System.out.println("Listo. Generando ventana de output...");                        
                         
-                        new SparqlOutput(dir, query, time, rs).setVisible(true);
+                        SparqlOutput outputWindow = new SparqlOutput(dir, query, time, rs);
+                        outputWindow.setVisible(true);
+                        outputWindow.showFormattedResult();
                     } catch (Exception e1) {
                         System.out.println("---INICIO Mensaje de excepción---");
                         System.console().printf(e1.toString());
