@@ -153,7 +153,6 @@ public class SparqlClient extends JFrame {
                         
                         SparqlOutput outputWindow = new SparqlOutput(dir, query, time, rs);
                         outputWindow.setVisible(true);
-                        outputWindow.showFormattedResult();
                     } catch (Exception e1) {
                         System.out.println("---INICIO Mensaje de excepción---");
                         System.console().printf(e1.toString());
