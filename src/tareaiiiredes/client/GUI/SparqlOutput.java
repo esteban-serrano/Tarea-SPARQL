@@ -10,6 +10,8 @@
  */
 package tareaiiiredes.client.GUI;
 
+import com.hp.hpl.jena.query.*;
+
 /**
  *
  * @author Esteban
@@ -17,8 +19,22 @@ package tareaiiiredes.client.GUI;
 public class SparqlOutput extends javax.swing.JFrame {
 
     /** Creates new form SparqlOutput */
-    public SparqlOutput() {
+    public SparqlOutput(String url, String query, long t, ResultSet result) {
         initComponents();
+        textAreaConsulta.setText(query);
+        System.out.println("Formateando el resultado...");
+        textAreaResultado.setText(resultToString(result));
+        System.out.println("Formato listo.");
+        textFieldTiempoTotalEj.setText(t + " ms");
+        textFieldURL.setText(url);
+    }
+
+    private String resultToString(ResultSet r) {
+        String output = "";
+        while (r.hasNext()) {
+            output = output + r.next().toString() + "\r\n";
+        }
+        return output;
     }
 
     /** This method is called from within the constructor to
@@ -36,19 +52,25 @@ public class SparqlOutput extends javax.swing.JFrame {
         textFieldURL = new java.awt.TextField();
         labelConsulta = new java.awt.Label();
         textAreaConsulta = new java.awt.TextArea();
+        labelTiempoTotalEj = new java.awt.Label();
+        textFieldTiempoTotalEj = new java.awt.TextField();
         jPanelResultado = new javax.swing.JPanel();
         textAreaResultado = new java.awt.TextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Resultado de la consulta");
 
-        labelURL.setText("URL de la BD RDF");
+        labelURL.setText("URL de la BD RDF:");
 
         textFieldURL.setEditable(false);
 
-        labelConsulta.setText("Consulta");
+        labelConsulta.setText("Consulta:");
 
         textAreaConsulta.setEditable(false);
+
+        labelTiempoTotalEj.setText("Tiempo total:");
+
+        textFieldTiempoTotalEj.setEditable(false);
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
@@ -60,6 +82,10 @@ public class SparqlOutput extends javax.swing.JFrame {
                     .addComponent(textAreaConsulta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                     .addComponent(textFieldURL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                     .addComponent(labelURL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetallesLayout.createSequentialGroup()
+                        .addComponent(labelTiempoTotalEj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldTiempoTotalEj, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
                     .addComponent(labelConsulta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -71,15 +97,23 @@ public class SparqlOutput extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelTiempoTotalEj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldTiempoTotalEj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textAreaConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                .addComponent(textAreaConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        labelURL.getAccessibleContext().setAccessibleName("URL de la BD RDF");
+        labelTiempoTotalEj.getAccessibleContext().setAccessibleName("Tiempo total:");
 
         jTabbedPane1.addTab("Detalles", jPanelDetalles);
 
         textAreaResultado.setEditable(false);
+        textAreaResultado.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanelResultadoLayout = new javax.swing.GroupLayout(jPanelResultado);
         jPanelResultado.setLayout(jPanelResultadoLayout);
@@ -109,15 +143,16 @@ public class SparqlOutput extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelResultado;
     private javax.swing.JTabbedPane jTabbedPane1;
     private java.awt.Label labelConsulta;
+    private java.awt.Label labelTiempoTotalEj;
     private java.awt.Label labelURL;
     private java.awt.TextArea textAreaConsulta;
     private java.awt.TextArea textAreaResultado;
+    private java.awt.TextField textFieldTiempoTotalEj;
     private java.awt.TextField textFieldURL;
     // End of variables declaration//GEN-END:variables
 }
