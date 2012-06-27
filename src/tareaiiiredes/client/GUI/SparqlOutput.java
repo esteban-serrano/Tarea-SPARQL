@@ -66,7 +66,9 @@ public class SparqlOutput extends javax.swing.JFrame {
         textFieldTiempoTotalEj = new java.awt.TextField();
         jPanelResultados = new javax.swing.JPanel();
         textAreaResultados = new java.awt.TextArea();
-        jScrollPaneResultados = new javax.swing.JScrollPane();
+        jPanelResultadosTabla = new javax.swing.JPanel();
+        jProgressBarResultadosTabla = new javax.swing.JProgressBar();
+        jScrollPaneResultadosTabla = new javax.swing.JScrollPane();
         jTableResultados = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex) {
                 return false;   //Disallow the editing of any cell
@@ -99,13 +101,13 @@ public class SparqlOutput extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textAreaConsulta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                    .addComponent(textFieldURL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                    .addComponent(textAreaConsulta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addComponent(textFieldURL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                     .addComponent(labelURL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetallesLayout.createSequentialGroup()
                         .addComponent(labelTiempoTotalEj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldTiempoTotalEj, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
+                        .addComponent(textFieldTiempoTotalEj, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
                     .addComponent(labelConsulta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -123,7 +125,7 @@ public class SparqlOutput extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textAreaConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                .addComponent(textAreaConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -140,11 +142,11 @@ public class SparqlOutput extends javax.swing.JFrame {
         jPanelResultados.setLayout(jPanelResultadosLayout);
         jPanelResultadosLayout.setHorizontalGroup(
             jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textAreaResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+            .addComponent(textAreaResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
         );
         jPanelResultadosLayout.setVerticalGroup(
             jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textAreaResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+            .addComponent(textAreaResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Resultado", jPanelResultados);
@@ -162,21 +164,34 @@ public class SparqlOutput extends javax.swing.JFrame {
                 }
             );
         }
-        jScrollPaneResultados.setViewportView(jTableResultados);
+        jScrollPaneResultadosTabla.setViewportView(jTableResultados);
 
-        jTabbedPane1.addTab("Resultado (tabulado)", jScrollPaneResultados);
+        javax.swing.GroupLayout jPanelResultadosTablaLayout = new javax.swing.GroupLayout(jPanelResultadosTabla);
+        jPanelResultadosTabla.setLayout(jPanelResultadosTablaLayout);
+        jPanelResultadosTablaLayout.setHorizontalGroup(
+            jPanelResultadosTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jProgressBarResultadosTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+            .addComponent(jScrollPaneResultadosTabla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+        );
+        jPanelResultadosTablaLayout.setVerticalGroup(
+            jPanelResultadosTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelResultadosTablaLayout.createSequentialGroup()
+                .addComponent(jScrollPaneResultadosTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jProgressBarResultadosTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        jTabbedPane1.setSelectedComponent(jScrollPaneResultados);
+        jTabbedPane1.addTab("Resultados (tabla)", jPanelResultadosTabla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
         );
 
         pack();
@@ -184,7 +199,9 @@ public class SparqlOutput extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelResultados;
-    private javax.swing.JScrollPane jScrollPaneResultados;
+    private javax.swing.JPanel jPanelResultadosTabla;
+    private javax.swing.JProgressBar jProgressBarResultadosTabla;
+    private javax.swing.JScrollPane jScrollPaneResultadosTabla;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableResultados;
     private java.awt.Label labelConsulta;
