@@ -41,15 +41,10 @@ public class SparqlClient extends JFrame {
     public void initComponents() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cliente SPARQL");
-
-
         queryTextArea = new JTextArea();
-
         textField = new JTextField();
         textField.setColumns(10);
-
         JButton btnSendQuery = new JButton("Query");
-
         JRadioButton rdbtnHttpGet = new JRadioButton("HTTP GET");
         rdbtnHttpGet.setSelected(true);
         buttonGroup.add(rdbtnHttpGet);
