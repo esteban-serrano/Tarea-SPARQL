@@ -1,3 +1,6 @@
+build/*
+nbproject/*
+
 *.class
 
 # Package Files #
