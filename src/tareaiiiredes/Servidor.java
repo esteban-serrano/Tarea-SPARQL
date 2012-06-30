@@ -14,7 +14,9 @@ import java.util.*;
 public class Servidor {
     
     ServerSocket SS;
-    int port = 8002;
+    Socket NewCon = null;
+    int port = 8003;
+    int id=-1;
     
     public void run() throws IOException
     {
@@ -32,33 +34,12 @@ public class Servidor {
         
          // request handler loop
         while (true) {
-            Socket connection = null;
+            
             try {
                 // wait for request
-                connection = SS.accept();
-                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                OutputStream out = new BufferedOutputStream(connection.getOutputStream());
-                PrintStream pout = new PrintStream(out);
-             // read first line of request (ignore the rest)
-                String request = in.readLine();
-                
-                
-                if (request==null)
-                    continue;
-                //log(connection, request);
-                int i = 0;
-                while (true) {                    
-                   //Read the http data message
-                    String misc = in.readLine();
-                    if(i==2)
-                        misc = URLDecoder.decode(misc, "UTF-8");
-                    System.out.println(misc);
-                    i++;
+                NewCon = SS.accept();
+                new Thread(new NewConHandler(NewCon, id++)).start();
                     
-                    if (misc==null || misc.length()==0)
-                        break;
-                }
-                
             }
             finally{}
             
