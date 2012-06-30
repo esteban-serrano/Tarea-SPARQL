@@ -29,9 +29,10 @@ public class SparqlOutput extends javax.swing.JFrame {
     private String query;
     private long totalTime;
     private String format;
+    private int totalResultados = 0;
     
     /** Creates new form SparqlOutput */
-    public SparqlOutput(String url, String query, long time, ResultSet result,ResultSet rscopy,String format) {
+    public SparqlOutput(String url, String query, long time, ResultSet result, ResultSet rscopy, String format) {
         this.r = result;
         this.rscopy=rscopy;
         this.url = url;
@@ -42,10 +43,11 @@ public class SparqlOutput extends javax.swing.JFrame {
     }
 
     private String resultToString(){
-       ByteArrayOutputStream so= new ByteArrayOutputStream();
+       ByteArrayOutputStream so = new ByteArrayOutputStream();
+       
        if(this.format.equals("CSV")){
             ResultSetFormatter.outputAsCSV(so,rscopy);
-        }
+       }
        else if(this.format.equals("XML")){
            ResultSetFormatter.outputAsXML(so,rscopy);
        }
@@ -58,8 +60,9 @@ public class SparqlOutput extends javax.swing.JFrame {
        else if(this.format.equals("JSON")){
            ResultSetFormatter.outputAsJSON(so, rscopy);
        }
-        String s=so.toString();
-        return s;
+       
+       String s = so.toString();
+       return s;
     }
     
     public void showFormattedResult(){
@@ -86,11 +89,16 @@ public class SparqlOutput extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1Query = new javax.swing.JTextArea();
+        jLabelTotalResultados = new javax.swing.JLabel();
+        jTextFieldTotalResultados = new javax.swing.JTextField();
         jPanelResultados = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaResult = new javax.swing.JTextArea();
+        jButtonCopiarPortapapeles = new javax.swing.JButton();
+        jLabelFormato = new javax.swing.JLabel();
+        jTextFieldFormato = new javax.swing.JTextField();
+        jTextFieldFormato.setText(this.format);
         jPanelResultadosTabla = new javax.swing.JPanel();
-        jProgressBarResultadosTabla = new javax.swing.JProgressBar();
         jScrollPaneResultadosTabla = new javax.swing.JScrollPane();
         jTableResultados = new javax.swing.JTable();
 
@@ -104,36 +112,46 @@ public class SparqlOutput extends javax.swing.JFrame {
         jLabel1.setText("URL de la BD RDF:");
 
         jTextFieldUrl.setText(this.url);
+        jTextFieldUrl.setEditable(false);
 
-        jLabel2.setText("Tiempo total de la consulta");
+        jLabel2.setText("Tiempo total de la consulta:");
 
-        jTextFieldTime.setText(""+this.totalTime);
+        jTextFieldTime.setText(this.totalTime + " ms");
+        jTextFieldTime.setEditable(false);
 
-        jLabel3.setText("Consulta");
+        jLabel3.setText("Consulta:");
 
         jTextArea1Query.setText(this.query);
         jTextArea1Query.setColumns(20);
+        jTextArea1Query.setEditable(false);
         jTextArea1Query.setRows(5);
         jScrollPane1.setViewportView(jTextArea1Query);
+
+        jLabelTotalResultados.setText("Total de resultados:");
+
+        jTextFieldTotalResultados.setEditable(false);
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelDetallesLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                    .addComponent(jTextFieldUrl, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(4, 4, 4)
-                        .addComponent(jTextFieldTime, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
-                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addComponent(jTextFieldUrl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetallesLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 293, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetallesLayout.createSequentialGroup()
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addGap(0, 293, Short.MAX_VALUE)))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabelTotalResultados))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextFieldTotalResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                            .addComponent(jTextFieldTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         jPanelDetallesLayout.setVerticalGroup(
@@ -148,10 +166,14 @@ public class SparqlOutput extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelTotalResultados)
+                    .addComponent(jTextFieldTotalResultados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel3.getAccessibleContext().setAccessibleName("Consulta:");
@@ -160,8 +182,20 @@ public class SparqlOutput extends javax.swing.JFrame {
 
         showFormattedResult();
         jTextAreaResult.setColumns(20);
+        jTextAreaResult.setEditable(false);
         jTextAreaResult.setRows(5);
         jScrollPane2.setViewportView(jTextAreaResult);
+
+        jButtonCopiarPortapapeles.setText("Copiar resultado al portapapeles");
+        jButtonCopiarPortapapeles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCopiarPortapapelesMouseClicked(evt);
+            }
+        });
+
+        jLabelFormato.setText("Formato:");
+
+        jTextFieldFormato.setEditable(false);
 
         javax.swing.GroupLayout jPanelResultadosLayout = new javax.swing.GroupLayout(jPanelResultados);
         jPanelResultados.setLayout(jPanelResultadosLayout);
@@ -169,15 +203,27 @@ public class SparqlOutput extends javax.swing.JFrame {
             jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelResultadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addGroup(jPanelResultadosLayout.createSequentialGroup()
+                        .addComponent(jLabelFormato)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldFormato, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addComponent(jButtonCopiarPortapapeles)))
                 .addContainerGap())
         );
         jPanelResultadosLayout.setVerticalGroup(
             jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelResultadosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelResultadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelFormato)
+                    .addComponent(jTextFieldFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCopiarPortapapeles))
+                .addGap(28, 28, 28))
         );
 
         jTabbedPane1.addTab("Resultado", jPanelResultados);
@@ -187,15 +233,15 @@ public class SparqlOutput extends javax.swing.JFrame {
         model.addColumn("#");
         model.addColumn("Resultado");
         jTableResultados.setModel(model);
-        int i=0;
         while(this.r.hasNext()){
             String s=r.next().toString();
             Object[] nuevo= new Object[2];
-            nuevo[0]=i;
+            nuevo[0]=this.totalResultados;
             nuevo[1]=s;
             model.addRow(nuevo);
-            i++;
+            this.totalResultados++;
         }
+        jTextFieldTotalResultados.setText("" + this.totalResultados);
         jTableResultados.setModel(model);
         jScrollPaneResultadosTabla.setViewportView(jTableResultados);
 
@@ -203,18 +249,16 @@ public class SparqlOutput extends javax.swing.JFrame {
         jPanelResultadosTabla.setLayout(jPanelResultadosTablaLayout);
         jPanelResultadosTablaLayout.setHorizontalGroup(
             jPanelResultadosTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jProgressBarResultadosTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
             .addComponent(jScrollPaneResultadosTabla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
         );
         jPanelResultadosTablaLayout.setVerticalGroup(
             jPanelResultadosTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelResultadosTablaLayout.createSequentialGroup()
-                .addComponent(jScrollPaneResultadosTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBarResultadosTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPaneResultadosTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Resultados (tabla)", jPanelResultadosTabla);
+
+        jTabbedPane1.setSelectedComponent(jPanelResultados);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,15 +274,23 @@ public class SparqlOutput extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonCopiarPortapapelesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCopiarPortapapelesMouseClicked
+        java.awt.datatransfer.StringSelection stringSelection = new java.awt.datatransfer.StringSelection( this.jTextAreaResult.getText() );
+        java.awt.datatransfer.Clipboard clipboard = java.awt.Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, stringSelection);
+    }//GEN-LAST:event_jButtonCopiarPortapapelesMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCopiarPortapapeles;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelFormato;
+    private javax.swing.JLabel jLabelTotalResultados;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelResultados;
     private javax.swing.JPanel jPanelResultadosTabla;
-    private javax.swing.JProgressBar jProgressBarResultadosTabla;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneResultadosTabla;
@@ -246,7 +298,9 @@ public class SparqlOutput extends javax.swing.JFrame {
     private javax.swing.JTable jTableResultados;
     private javax.swing.JTextArea jTextArea1Query;
     private javax.swing.JTextArea jTextAreaResult;
+    private javax.swing.JTextField jTextFieldFormato;
     private javax.swing.JTextField jTextFieldTime;
+    private javax.swing.JTextField jTextFieldTotalResultados;
     private javax.swing.JTextField jTextFieldUrl;
     // End of variables declaration//GEN-END:variables
 }
