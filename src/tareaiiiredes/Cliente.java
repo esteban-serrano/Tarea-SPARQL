@@ -52,7 +52,7 @@ public class Cliente {
             BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
             wr.write("POST "+dir+" HTTP/1.0\r\n");
             wr.write("Content-Length: "+data.length()+"\r\n");
-            wr.write("Content-Type: query "+format+"\r\n");
+            wr.write("Content-Type: text/"+format+"\r\n");
             wr.write(data);
             wr.write("\r\n");
 
