@@ -244,7 +244,7 @@
                     <Property name="rows" type="int" value="5"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="showFormattedResult();"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextAreaResult.setText(this.r);"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

@@ -16,7 +16,7 @@ import tareaiiiredes.Cliente;
  */
 public class SparqlClientn extends javax.swing.JFrame {
      
-    Cliente cliente;
+    Cliente client;
      /**
      * Creates new form SparqlClientn
      */
@@ -173,20 +173,20 @@ public class SparqlClientn extends javax.swing.JFrame {
         String host = mEndpointServerIPTextField1.getText();
         try{
             int port= Integer.parseInt(jTextFieldPort.getText().toString());
-            cliente =new Cliente(host,port);
-            cliente.run();
+            client =new Cliente(host,port);
+            client.run();
         }catch(Exception e){}
         
-        if(cliente!=null&&cliente.GetSocketStatus()!=null&&cliente.GetSocketStatus().isConnected()){
+        if(client!=null&&client.GetSocketStatus()!=null&&client.GetSocketStatus().isConnected()){
             String query = mqueryTextArea.getText();
             long startTime;
             long totalTime=0;
             startTime = System.currentTimeMillis();
-            cliente.sendmessage(query, jComboBox2.getSelectedItem().toString());
+            client.sendmessage(query,mEndpointTextField.toString(),jComboBox2.getSelectedItem().toString());
             String resultados="";
             //Pedir respuesta al sevidor
             totalTime = System.currentTimeMillis() - startTime;
-            SparqlOutput outputwindow = new SparqlOutput(host,query,totalTime,cliente,resultados);
+            SparqlOutput outputwindow = new SparqlOutput(mEndpointTextField.toString(),query,totalTime,resultados);
             outputwindow.setVisible(true);
             /*
             String query = mqueryTextArea.getText();

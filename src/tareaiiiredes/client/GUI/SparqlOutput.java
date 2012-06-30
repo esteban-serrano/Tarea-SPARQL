@@ -9,6 +9,9 @@
  * Created on Jun 26, 2012, 7:54:13 PM
  */
 package tareaiiiredes.client.GUI;
+
+import java.net.Socket;
+
 /**
  *
  * @author Esteban
@@ -20,16 +23,13 @@ public class SparqlOutput extends javax.swing.JFrame {
     private String url;
     private String query;
     private long totalTime;
-    private String format;
-    private int totalResultados = 0;
     
     /** Creates new form SparqlOutput */
-    public SparqlOutput(String url, String query, long time, String result, String format) {
+    public SparqlOutput(String url, String query, long time, String result) {
         this.r = result;
         this.url = url;
         this.query = query;
         this.totalTime = time;
-        this.format=format;
         initComponents();
     }
 /*
@@ -160,7 +160,7 @@ public class SparqlOutput extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Detalles", null, jPanelDetalles, "");
 
-        showFormattedResult();
+        jTextAreaResult.setText(this.r);
         jTextAreaResult.setColumns(20);
         jTextAreaResult.setEditable(false);
         jTextAreaResult.setRows(5);
