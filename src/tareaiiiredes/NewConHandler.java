@@ -140,6 +140,7 @@ public class NewConHandler implements Runnable {
                         } else {
                             String body = URLEncoder.encode(this.resultToString(format, r), "UTF-8");
                             this.sendHTTP200OKResponse(out, body);
+                            break;
                         }
 
                     }
