@@ -39,7 +39,7 @@ public class Cliente {
         return socket;
     } 
     
-    public void sendmessage(String msg,String format)
+    public void sendmessage(String dir,String msg,String format)
     {
         try {
             // Construct data
@@ -49,9 +49,8 @@ public class Cliente {
             //InetAddress addr = InetAddress.getByName(host);
 
             // Send header
-            String path = "/redes/Tarea3/consultaRDF";
             BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
-            wr.write("POST "+path+" HTTP/1.0\r\n");
+            wr.write("POST "+dir+" HTTP/1.0\r\n");
             wr.write("Content-Length: "+data.length()+"\r\n");
             wr.write("Content-Type: query "+format+"\r\n");
             wr.write(data);
