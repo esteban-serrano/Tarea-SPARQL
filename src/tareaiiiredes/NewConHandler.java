@@ -95,7 +95,7 @@ public class NewConHandler implements Runnable {
             // read first line of request (ignore the rest)
             String request = in.readLine();
 
-            if (request.substring(0, 3).equals("POST")) {
+            if (request.substring(0, 4).equals("POST")) {
                 System.out.println("Mensaje POST recibido, client id is: " + m_clientID);
                 int i = 0;
                 int blankLineCounter = 0;
