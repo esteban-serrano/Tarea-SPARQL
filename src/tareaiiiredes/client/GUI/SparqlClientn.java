@@ -176,7 +176,7 @@ public class SparqlClientn extends javax.swing.JFrame {
             cliente.run();
         }catch(Exception e){}
         
-        if(cliente.GetSocketStatus()!=null){
+        if(cliente!=null&&cliente.GetSocketStatus()!=null){
             String query = mqueryTextArea.getText();
             ResultSet rs=null;
             ResultSet rscopy=null;

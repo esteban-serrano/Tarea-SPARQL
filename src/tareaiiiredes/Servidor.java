@@ -20,8 +20,6 @@ public class Servidor {
     
     public void run() throws IOException
     {
-        
-                
         // open server socket
         
         try {
@@ -41,9 +39,7 @@ public class Servidor {
                 new Thread(new NewConHandler(NewCon, id++)).start();
                     
             }
-            finally{}
-            
-            
+            finally{}   
         }
     }
     
