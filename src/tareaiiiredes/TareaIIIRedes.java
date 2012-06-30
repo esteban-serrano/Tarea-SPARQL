@@ -4,9 +4,8 @@
  */
 package tareaiiiredes;
 
-import tareaiiiredes.client.GUI.SparqlClientn;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import tareaiiiredes.client.GUI.SparqlClientn;
 
 /**
  *
@@ -45,6 +44,7 @@ public class TareaIIIRedes {
         // creating and showing this application's GUI.
         SwingUtilities.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 new SparqlClientn().setVisible(true);
             }

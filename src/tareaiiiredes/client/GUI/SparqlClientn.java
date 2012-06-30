@@ -5,6 +5,7 @@
 package tareaiiiredes.client.GUI;
 
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.Statement;
 import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
@@ -26,8 +27,8 @@ public class SparqlClientn extends javax.swing.JFrame {
         initComponents();
         //Consulta ejemplo
         mqueryTextArea.setText
-                (   "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n"
-                    +"SELECT ?pais\r\n"
+                (   "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                    +"SELECT ?pais\n"
                     +"WHERE {?pais rdf:type <http://dbpedia.org/ontology/Country>}"
                 );
         mEndpointTextField.setText("http://dbpedia.org/sparql");
@@ -36,12 +37,8 @@ public class SparqlClientn extends javax.swing.JFrame {
         this.add(p,BorderLayout.CENTER);
         
         jComboBox2.addItem("CSV");
-        jComboBox2.addItem("HTML");
-        jComboBox2.addItem("Javascript");
         jComboBox2.addItem("JSON");
-        jComboBox2.addItem("Ntriples");
         jComboBox2.addItem("RDF/XML");
-        jComboBox2.addItem("Spreadsheet");
         jComboBox2.addItem("TSV");
         jComboBox2.addItem("XML");
     }
@@ -158,23 +155,29 @@ public class SparqlClientn extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String host = mEndpointTextField.getText();
         String query = mqueryTextArea.getText();
+        ResultSet rs=null;
+        ResultSet rscopy=null;
+        long startTime;
+        long totalTime=0;
         try {
-            long startTime = System.currentTimeMillis();
-            ResultSet rs = QueryRemoteSparql.getResults(host, query);
-            long totalTime = System.currentTimeMillis() - startTime;
+            startTime = System.currentTimeMillis();
+            rs = QueryRemoteSparql.getResults(host, query);
+            rscopy=  QueryRemoteSparql.getResults(host, query);
+            totalTime = System.currentTimeMillis() - startTime;
             
-            if(rs != null)
-            {
-                SparqlOutput outputwindow = new SparqlOutput(host,query,totalTime,rs);
-                outputwindow.setVisible(true);
-            }
-            else
-                System.out.println("ResultSet vacío.");
-        } catch (Exception e1) {
+        } 
+        catch (Exception e1) {
             System.out.println("---INICIO Mensaje de excepción---");
             System.console().printf(e1.toString());
             System.out.println("---FIN Mensaje de excepción---");
         }
+        if(rs != null)
+        {
+            SparqlOutput outputwindow = new SparqlOutput(host,query,totalTime,rs,rscopy,jComboBox2.getSelectedItem().toString());
+            outputwindow.setVisible(true);
+        }
+        else
+            System.out.println("ResultSet vacío.");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

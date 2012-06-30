@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 package tareaiiiredes;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.query.*;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.ResultSet;
 /**
  *
  * @author orlando
@@ -19,9 +20,6 @@ public class QueryRemoteSparql {
         catch(Exception e){
             System.out.println("Exc. en static ResultSet QueryRemoteSparql.ResultSet");
             System.out.printf(e.toString());
-        }
-        finally{
-            qexec.close();
         }
         return rs;
     }

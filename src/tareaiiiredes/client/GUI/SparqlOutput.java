@@ -9,8 +9,12 @@
  * Created on Jun 26, 2012, 7:54:13 PM
  */
 package tareaiiiredes.client.GUI;
-
-import com.hp.hpl.jena.query.*;
+import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFormatter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.util.List;
 
 /**
  *
@@ -20,31 +24,47 @@ public class SparqlOutput extends javax.swing.JFrame {
 
     /** Atributos */
     private ResultSet r;
+    private ResultSet rscopy;
     private String url;
     private String query;
     private long totalTime;
+    private String format;
     
     /** Creates new form SparqlOutput */
-    public SparqlOutput(String url, String query, long time, ResultSet result) {
+    public SparqlOutput(String url, String query, long time, ResultSet result,ResultSet rscopy,String format) {
         this.r = result;
+        this.rscopy=rscopy;
         this.url = url;
         this.query = query;
         this.totalTime = time;
-        
+        this.format=format;
         initComponents();
     }
 
-    private String resultToString() {
-        StringBuilder builder = new StringBuilder();
-        while (this.r.hasNext()) {
-            builder.append(this.r.next().toString()).append("\r\n");
+    private String resultToString(){
+       ByteArrayOutputStream so= new ByteArrayOutputStream();
+       if(this.format.equals("CSV")){
+            ResultSetFormatter.outputAsCSV(so,rscopy);
         }
-        return builder.toString();
+       else if(this.format.equals("XML")){
+           ResultSetFormatter.outputAsXML(so,rscopy);
+       }
+       else if(this.format.equals("TSV")){
+           ResultSetFormatter.outputAsTSV(so, rscopy);
+       }
+       else if(this.format.equals("RDF/XML")){
+           ResultSetFormatter.outputAsRDF(so,format, rscopy);    
+       }
+       else if(this.format.equals("JSON")){
+           ResultSetFormatter.outputAsJSON(so, rscopy);
+       }
+        String s=so.toString();
+        return s;
     }
     
     public void showFormattedResult(){
-        textAreaResultados.setText("Formateando los resultados...");
-        textAreaResultados.setText(resultToString());
+        jTextAreaResult.setText("Formateando los resultados...");
+        jTextAreaResult.setText(resultToString());
     }
     
     /** This method is called from within the constructor to
@@ -56,114 +76,125 @@ public class SparqlOutput extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelDetalles = new javax.swing.JPanel();
-        labelURL = new java.awt.Label();
-        textFieldURL = new java.awt.TextField();
-        labelConsulta = new java.awt.Label();
-        textAreaConsulta = new java.awt.TextArea();
-        labelTiempoTotalEj = new java.awt.Label();
-        textFieldTiempoTotalEj = new java.awt.TextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldUrl = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldTime = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1Query = new javax.swing.JTextArea();
         jPanelResultados = new javax.swing.JPanel();
-        textAreaResultados = new java.awt.TextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaResult = new javax.swing.JTextArea();
         jPanelResultadosTabla = new javax.swing.JPanel();
         jProgressBarResultadosTabla = new javax.swing.JProgressBar();
         jScrollPaneResultadosTabla = new javax.swing.JScrollPane();
-        jTableResultados = new javax.swing.JTable(){
-            public boolean isCellEditable(int rowIndex, int colIndex) {
-                return false;   //Disallow the editing of any cell
-            }
-        };
+        jTableResultados = new javax.swing.JTable();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Resultado de la consulta");
 
-        labelURL.setText("URL de la BD RDF:");
+        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        textFieldURL.setEditable(false);
-        textFieldURL.setText(this.url);
+        jLabel1.setText("Url de la BD RDF:");
 
-        labelConsulta.setText("Consulta:");
+        jTextFieldUrl.setText(this.url);
 
-        textAreaConsulta.setEditable(false);
-        textAreaConsulta.setFont(new java.awt.Font("Monospaced", 0, 12));
-        textAreaConsulta.setText(this.query);
+        jLabel2.setText("Tiempo total de la consulta");
 
-        labelTiempoTotalEj.setText("Tiempo total de la consulta:");
+        jTextFieldTime.setText(""+this.totalTime);
 
-        textFieldTiempoTotalEj.setEditable(false);
-        textFieldTiempoTotalEj.setText(this.totalTime + " ms");
+        jLabel3.setText("Consulta");
+
+        jTextArea1Query.setText(this.query);
+        jTextArea1Query.setColumns(20);
+        jTextArea1Query.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1Query);
 
         javax.swing.GroupLayout jPanelDetallesLayout = new javax.swing.GroupLayout(jPanelDetalles);
         jPanelDetalles.setLayout(jPanelDetallesLayout);
         jPanelDetallesLayout.setHorizontalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
+            .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textAreaConsulta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                    .addComponent(textFieldURL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                    .addComponent(labelURL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetallesLayout.createSequentialGroup()
-                        .addComponent(labelTiempoTotalEj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldTiempoTotalEj, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
-                    .addComponent(labelConsulta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                    .addComponent(jTextFieldUrl)
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(4, 4, 4)
+                        .addComponent(jTextFieldTime))
+                    .addGroup(jPanelDetallesLayout.createSequentialGroup()
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelDetallesLayout.setVerticalGroup(
             jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldURL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelTiempoTotalEj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldTiempoTotalEj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textAreaConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
-
-        labelURL.getAccessibleContext().setAccessibleName("URL de la BD RDF");
-        labelTiempoTotalEj.getAccessibleContext().setAccessibleName("Tiempo total:");
 
         jTabbedPane1.addTab("Detalles", null, jPanelDetalles, "");
 
-        textAreaResultados.setEditable(false);
-        textAreaResultados.setEnabled(false);
-        textAreaResultados.setFont(new java.awt.Font("Monospaced", 0, 12));
+        showFormattedResult();
+        jTextAreaResult.setColumns(20);
+        jTextAreaResult.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaResult);
 
         javax.swing.GroupLayout jPanelResultadosLayout = new javax.swing.GroupLayout(jPanelResultados);
         jPanelResultados.setLayout(jPanelResultadosLayout);
         jPanelResultadosLayout.setHorizontalGroup(
             jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textAreaResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+            .addGroup(jPanelResultadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelResultadosLayout.setVerticalGroup(
             jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(textAreaResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+            .addGroup(jPanelResultadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Resultado", jPanelResultados);
 
+        jTableResultados.setAutoCreateRowSorter(true);
         javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
         model.addColumn("#");
         model.addColumn("Resultado");
         jTableResultados.setModel(model);
+        int i=0;
         while(this.r.hasNext()){
-            model.insertRow(
-                model.getRowCount(),            // Posición en la que insertar
-                new Object[]{
-                    (model.getRowCount() + 1),  // #
-                    r.next().toString()         // Resultado
-                }
-            );
+            String s=r.next().toString();
+            Object[] nuevo= new Object[2];
+            nuevo[0]=i;
+            nuevo[1]=s;
+            model.addRow(nuevo);
+            i++;
         }
+        jTableResultados.setModel(model);
         jScrollPaneResultadosTabla.setViewportView(jTableResultados);
 
         javax.swing.GroupLayout jPanelResultadosTablaLayout = new javax.swing.GroupLayout(jPanelResultadosTabla);
@@ -176,7 +207,7 @@ public class SparqlOutput extends javax.swing.JFrame {
         jPanelResultadosTablaLayout.setVerticalGroup(
             jPanelResultadosTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelResultadosTablaLayout.createSequentialGroup()
-                .addComponent(jScrollPaneResultadosTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(jScrollPaneResultadosTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jProgressBarResultadosTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -187,29 +218,33 @@ public class SparqlOutput extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelResultados;
     private javax.swing.JPanel jPanelResultadosTabla;
     private javax.swing.JProgressBar jProgressBarResultadosTabla;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneResultadosTabla;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableResultados;
-    private java.awt.Label labelConsulta;
-    private java.awt.Label labelTiempoTotalEj;
-    private java.awt.Label labelURL;
-    private java.awt.TextArea textAreaConsulta;
-    private java.awt.TextArea textAreaResultados;
-    private java.awt.TextField textFieldTiempoTotalEj;
-    private java.awt.TextField textFieldURL;
+    private javax.swing.JTextArea jTextArea1Query;
+    private javax.swing.JTextArea jTextAreaResult;
+    private javax.swing.JTextField jTextFieldTime;
+    private javax.swing.JTextField jTextFieldUrl;
     // End of variables declaration//GEN-END:variables
 }

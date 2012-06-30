@@ -1,6 +1,20 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JComboBox" name="jComboBox1">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Resultado de la consulta"/>
@@ -23,17 +37,25 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="1" pref="406" max="32767" attributes="0"/>
+          <Component id="jTabbedPane1" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="1" pref="358" max="32767" attributes="0"/>
+          <Component id="jTabbedPane1" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+      <Properties>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor predeterminado"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="SparqlOutput_jTabbedPane1"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -50,18 +72,23 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="textAreaConsulta" alignment="0" pref="381" max="32767" attributes="0"/>
-                          <Component id="textFieldURL" alignment="0" pref="381" max="32767" attributes="0"/>
-                          <Component id="labelURL" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane1" pref="377" max="32767" attributes="0"/>
+                          <Component id="jTextFieldUrl" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="labelTiempoTotalEj" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldTiempoTotalEj" pref="216" max="32767" attributes="0"/>
+                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              <Component id="jTextFieldTime" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="labelConsulta" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -71,72 +98,67 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelURL" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textFieldURL" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldUrl" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="labelTiempoTotalEj" min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldTiempoTotalEj" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldTime" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelConsulta" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textAreaConsulta" pref="190" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="181" max="-2" attributes="0"/>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="java.awt.Label" name="labelURL">
+            <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="URL de la BD RDF:"/>
+                <Property name="text" type="java.lang.String" value="Url de la BD RDF:"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="URL de la BD RDF"/>
-              </AccessibilityProperties>
             </Component>
-            <Component class="java.awt.TextField" name="textFieldURL">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
+            <Component class="javax.swing.JTextField" name="jTextFieldUrl">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="textFieldURL.setText(this.url);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextFieldUrl.setText(this.url);"/>
               </AuxValues>
             </Component>
-            <Component class="java.awt.Label" name="labelConsulta">
+            <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Consulta:"/>
+                <Property name="text" type="java.lang.String" value="Tiempo total de la consulta"/>
               </Properties>
             </Component>
-            <Component class="java.awt.TextArea" name="textAreaConsulta">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Monospaced" size="12" style="0"/>
-                </Property>
-              </Properties>
+            <Component class="javax.swing.JTextField" name="jTextFieldTime">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="textAreaConsulta.setText(this.query);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextFieldTime.setText(&quot;&quot;+this.totalTime);"/>
               </AuxValues>
             </Component>
-            <Component class="java.awt.Label" name="labelTiempoTotalEj">
+            <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Tiempo total de la consulta:"/>
+                <Property name="text" type="java.lang.String" value="Consulta"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Tiempo total:"/>
-              </AccessibilityProperties>
             </Component>
-            <Component class="java.awt.TextField" name="textFieldTiempoTotalEj">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="textFieldTiempoTotalEj.setText(this.totalTime + &quot; ms&quot;);"/>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
-            </Component>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="jTextArea1Query">
+                  <Properties>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="rows" type="int" value="5"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTextArea1Query.setText(this.query);"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanelResultados">
@@ -151,25 +173,42 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="textAreaResultados" alignment="0" pref="401" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" pref="377" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="textAreaResultados" alignment="0" pref="330" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" pref="307" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="java.awt.TextArea" name="textAreaResultados">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-                <Property name="enabled" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Monospaced" size="12" style="0"/>
-                </Property>
-              </Properties>
-            </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="jTextAreaResult">
+                  <Properties>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="rows" type="int" value="5"/>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="showFormattedResult();"/>
+                  </AuxValues>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanelResultadosTabla">
@@ -191,7 +230,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jScrollPaneResultadosTabla" pref="310" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneResultadosTabla" pref="311" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jProgressBarResultadosTabla" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -210,12 +249,10 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="jTableResultados">
                   <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" preCode="javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();&#xa;model.addColumn(&quot;#&quot;);&#xa;model.addColumn(&quot;Resultado&quot;);" postCode="while(this.r.hasNext()){&#xa;    model.insertRow(&#xa;        model.getRowCount(),            // Posici&#xf3;n en la que insertar&#xa;        new Object[]{&#xa;            (model.getRowCount() + 1),  // #&#xa;            r.next().toString()         // Resultado&#xa;        }&#xa;    );&#xa;}">
-                      <Connection code="model" type="code"/>
-                    </Property>
+                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    public boolean isCellEditable(int rowIndex, int colIndex) {&#xa;        return false;   //Disallow the editing of any cell&#xa;    }&#xa;}"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();&#xa;model.addColumn(&quot;#&quot;);&#xa;model.addColumn(&quot;Resultado&quot;);&#xa;jTableResultados.setModel(model);&#xa;int i=0;&#xa;while(this.r.hasNext()){&#xa;    String s=r.next().toString();&#xa;    Object[] nuevo= new Object[2];&#xa;    nuevo[0]=i;&#xa;    nuevo[1]=s;&#xa;    model.addRow(nuevo);&#xa;    i++;&#xa;}&#xa;jTableResultados.setModel(model);"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
