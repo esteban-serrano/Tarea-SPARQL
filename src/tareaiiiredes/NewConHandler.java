@@ -108,11 +108,13 @@ public class NewConHandler implements Runnable {
                 while (true) {
                     //Read the http data message
                     String misc = in.readLine();
-
+                    
                     if (misc == null) {
                         break;
                     }
-
+                    
+                    System.out.println("[i = " + i + "]\t" + misc);
+                    
                     if (misc.length() == 0) {
                         blankLineCounter++;
                         if (blankLineCounter == 2) {
@@ -143,7 +145,6 @@ public class NewConHandler implements Runnable {
                         }
 
                     }
-                    System.out.println("[i = " + i + "]\t" + misc);
                     i++;
                 }
             } else if (request.substring(0, 2).equals("GET")) {
