@@ -53,6 +53,7 @@ public class Cliente {
             wr.write("POST "+dir+" HTTP/1.0\r\n");
             wr.write("Content-Length: "+data.length()+"\r\n");
             wr.write("Content-Type: text/"+format+"\r\n");
+            wr.write("\r\n");
             wr.write(data);
             wr.write("\r\n");
 
