@@ -49,14 +49,24 @@ public class NewConHandler implements Runnable {
     
     private void sendHTTP200OKResponse(BufferedWriter out, String body)
     {
-        
+        try
+        {
+            out.write("HTTP/1.1 200 OK\r\n");
+            out.write(body);
+            out.write("\r\n");
+        }
+        catch (Exception e)
+        {
+            
+        }
     }
     
     private void sendHTTP500InternalServerErrorResponse(BufferedWriter out)
     {
         try
         {
-            out.write("HTTP/1.1 500 Internal Server Error");
+            out.write("HTTP/1.1 500 Internal Server Error\r\n");
+            out.write("\r\n");
             out.flush();
         }
         catch (Exception e)
