@@ -12,7 +12,7 @@ import java.util.*;/**
  */
 public class Cliente {
     
-    int port = 8002;
+    int port = 8003;
     public String host = "127.0.0.1";
     private Socket socket;
     
