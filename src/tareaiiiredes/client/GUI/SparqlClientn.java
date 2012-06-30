@@ -4,6 +4,7 @@
  */
 package tareaiiiredes.client.GUI;
 
+import arq.query;
 import com.hp.hpl.jena.query.ResultSet;
 import java.awt.BorderLayout;
 import tareaiiiredes.QueryRemoteSparql;
@@ -176,7 +177,18 @@ public class SparqlClientn extends javax.swing.JFrame {
             cliente.run();
         }catch(Exception e){}
         
-        if(cliente!=null&&cliente.GetSocketStatus()!=null){
+        if(cliente!=null&&cliente.GetSocketStatus()!=null&&cliente.GetSocketStatus().isConnected()){
+            String query = mqueryTextArea.getText();
+            long startTime;
+            long totalTime=0;
+            startTime = System.currentTimeMillis();
+            cliente.sendmessage(query, jComboBox2.getSelectedItem().toString());
+            String resultados="";
+            //Pedir respuesta al sevidor
+            totalTime = System.currentTimeMillis() - startTime;
+            SparqlOutput outputwindow = new SparqlOutput(host,query,totalTime,cliente,resultados);
+            outputwindow.setVisible(true);
+            /*
             String query = mqueryTextArea.getText();
             ResultSet rs=null;
             ResultSet rscopy=null;
@@ -200,6 +212,7 @@ public class SparqlClientn extends javax.swing.JFrame {
             }
             else
                 System.out.println("ResultSet vacío.");
+            */
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

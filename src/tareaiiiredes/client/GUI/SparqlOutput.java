@@ -9,12 +9,6 @@
  * Created on Jun 26, 2012, 7:54:13 PM
  */
 package tareaiiiredes.client.GUI;
-import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.ResultSetFormatter;
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.util.List;
-
 /**
  *
  * @author Esteban
@@ -22,8 +16,7 @@ import java.util.List;
 public class SparqlOutput extends javax.swing.JFrame {
 
     /** Atributos */
-    private ResultSet r;
-    private ResultSet rscopy;
+    private String r;
     private String url;
     private String query;
     private long totalTime;
@@ -31,16 +24,15 @@ public class SparqlOutput extends javax.swing.JFrame {
     private int totalResultados = 0;
     
     /** Creates new form SparqlOutput */
-    public SparqlOutput(String url, String query, long time, ResultSet result, ResultSet rscopy, String format) {
+    public SparqlOutput(String url, String query, long time, String result, String format) {
         this.r = result;
-        this.rscopy=rscopy;
         this.url = url;
         this.query = query;
         this.totalTime = time;
         this.format=format;
         initComponents();
     }
-
+/*
     private String resultToString(){
        ByteArrayOutputStream so = new ByteArrayOutputStream();
        
@@ -62,12 +54,8 @@ public class SparqlOutput extends javax.swing.JFrame {
        
        String s = so.toString();
        return s;
-    }
-    
-    public void showFormattedResult(){
-        jTextAreaResult.setText("Formateando los resultados...");
-        jTextAreaResult.setText(resultToString());
-    }
+       }
+    */
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -94,12 +82,6 @@ public class SparqlOutput extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaResult = new javax.swing.JTextArea();
         jButtonCopiarPortapapeles = new javax.swing.JButton();
-        jLabelFormato = new javax.swing.JLabel();
-        jTextFieldFormato = new javax.swing.JTextField();
-        jTextFieldFormato.setText(this.format);
-        jPanelResultadosTabla = new javax.swing.JPanel();
-        jScrollPaneResultadosTabla = new javax.swing.JScrollPane();
-        jTableResultados = new javax.swing.JTable();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -137,11 +119,8 @@ public class SparqlOutput extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetallesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
                     .addComponent(jTextFieldUrl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetallesLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 293, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetallesLayout.createSequentialGroup()
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -150,7 +129,11 @@ public class SparqlOutput extends javax.swing.JFrame {
                         .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextFieldTotalResultados, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                             .addComponent(jTextFieldTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDetallesLayout.createSequentialGroup()
+                        .addGroup(jPanelDetallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelDetallesLayout.setVerticalGroup(
@@ -171,11 +154,9 @@ public class SparqlOutput extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        jLabel3.getAccessibleContext().setAccessibleName("Consulta:");
 
         jTabbedPane1.addTab("Detalles", null, jPanelDetalles, "");
 
@@ -192,10 +173,6 @@ public class SparqlOutput extends javax.swing.JFrame {
             }
         });
 
-        jLabelFormato.setText("Formato:");
-
-        jTextFieldFormato.setEditable(false);
-
         javax.swing.GroupLayout jPanelResultadosLayout = new javax.swing.GroupLayout(jPanelResultados);
         jPanelResultados.setLayout(jPanelResultadosLayout);
         jPanelResultadosLayout.setHorizontalGroup(
@@ -203,14 +180,11 @@ public class SparqlOutput extends javax.swing.JFrame {
             .addGroup(jPanelResultadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
                     .addGroup(jPanelResultadosLayout.createSequentialGroup()
-                        .addComponent(jLabelFormato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldFormato, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                        .addComponent(jButtonCopiarPortapapeles)))
-                .addContainerGap())
+                        .addGap(12, 12, 12)
+                        .addComponent(jButtonCopiarPortapapeles, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanelResultadosLayout.setVerticalGroup(
             jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,44 +192,11 @@ public class SparqlOutput extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelFormato)
-                    .addComponent(jTextFieldFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCopiarPortapapeles))
-                .addGap(28, 28, 28))
+                .addComponent(jButtonCopiarPortapapeles, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Resultado", jPanelResultados);
-
-        jTableResultados.setAutoCreateRowSorter(true);
-        javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
-        model.addColumn("#");
-        model.addColumn("Resultado");
-        jTableResultados.setModel(model);
-        while(this.r.hasNext()){
-            String s=r.next().toString();
-            Object[] nuevo= new Object[2];
-            nuevo[0]=this.totalResultados;
-            nuevo[1]=s;
-            model.addRow(nuevo);
-            this.totalResultados++;
-        }
-        jTextFieldTotalResultados.setText("" + this.totalResultados);
-        jTableResultados.setModel(model);
-        jScrollPaneResultadosTabla.setViewportView(jTableResultados);
-
-        javax.swing.GroupLayout jPanelResultadosTablaLayout = new javax.swing.GroupLayout(jPanelResultadosTabla);
-        jPanelResultadosTabla.setLayout(jPanelResultadosTablaLayout);
-        jPanelResultadosTablaLayout.setHorizontalGroup(
-            jPanelResultadosTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneResultadosTabla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
-        );
-        jPanelResultadosTablaLayout.setVerticalGroup(
-            jPanelResultadosTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneResultadosTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Resultados (tabla)", jPanelResultadosTabla);
 
         jTabbedPane1.setSelectedComponent(jPanelResultados);
 
@@ -285,19 +226,14 @@ public class SparqlOutput extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelFormato;
     private javax.swing.JLabel jLabelTotalResultados;
     private javax.swing.JPanel jPanelDetalles;
     private javax.swing.JPanel jPanelResultados;
-    private javax.swing.JPanel jPanelResultadosTabla;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPaneResultadosTabla;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTableResultados;
     private javax.swing.JTextArea jTextArea1Query;
     private javax.swing.JTextArea jTextAreaResult;
-    private javax.swing.JTextField jTextFieldFormato;
     private javax.swing.JTextField jTextFieldTime;
     private javax.swing.JTextField jTextFieldTotalResultados;
     private javax.swing.JTextField jTextFieldUrl;

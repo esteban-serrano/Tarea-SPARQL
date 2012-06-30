@@ -39,7 +39,7 @@ public class Cliente {
         return socket;
     } 
     
-    public void sendmessage(String msg)
+    public void sendmessage(String msg,String format)
     {
         try {
             // Construct data
@@ -53,7 +53,7 @@ public class Cliente {
             BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
             wr.write("POST "+path+" HTTP/1.0\r\n");
             wr.write("Content-Length: "+data.length()+"\r\n");
-            wr.write("Content-Type: query/RDF\r\n");
+            wr.write("Content-Type: query "+format+"\r\n");
             wr.write(data);
             wr.write("\r\n");
 
