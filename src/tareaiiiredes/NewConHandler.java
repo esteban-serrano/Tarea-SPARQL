@@ -52,6 +52,7 @@ public class NewConHandler implements Runnable {
         try
         {
             out.write("HTTP/1.1 200 OK\r\n");
+            out.write("\r\n");
             out.write(body);
             out.write("\r\n");
         }
@@ -90,16 +91,34 @@ public class NewConHandler implements Runnable {
             
             if (request.substring(0, 3).equals("POST"))
             {
+                System.out.println("Mensaje POST recibido, client id is: " + m_clientID);
                 int i = 0;
+                int blankLineCounter = 0;
+                
+                int indexPrimerEspacio = request.indexOf(' ');
+                int indexSegundoEspacio = request.indexOf(' ', indexPrimerEspacio + 1);
+                String host = request.substring(indexPrimerEspacio + 1, indexSegundoEspacio);
+                
                 while (true) {
                     //Read the http data message
                     String misc = in.readLine();
-                    if (i == 2) {
-                        // Según el número de encabezados definidos en nuestro cliente,
-                        // cuando i = 2, misc corresponde al contenido del mensaje,
-                        // en este caso, la consulta SPARQL.
+                    
+                    if (misc == null)
+                        break;
+                    
+                    if (misc.length() == 0)
+                    {
+                        blankLineCounter++;
+                        if (blankLineCounter == 2)
+                            break;
+                    }
+                    
+                    
+                    if (misc.length() != 0 && blankLineCounter == 1) {
+                        // El cuerpo de un request HTTP enviado como POST se
+                        // encuentra después de una línea en blanco
                         misc = URLDecoder.decode(misc, "UTF-8");
-                        ResultSet r = this.getQueryResults("http://dbpedia.org/sparql", misc);
+                        ResultSet r = this.getQueryResults(host, misc);
                         
                         if(r == null)
                         {
@@ -107,22 +126,16 @@ public class NewConHandler implements Runnable {
                             break;
                         }
                         else
-                        {
                             this.sendHTTP200OKResponse(out, r.toString());
-                        }
                         
                     }
                     System.out.println("[i = " + i + "]\t" + misc);
                     i++;
-
-                    if (misc == null || misc.length() == 0) {
-                        break;
-                    }
                 }
             }
             else if (request.substring(0, 2).equals("GET"))
             {
-                
+                System.out.println("Mensaje GET recibido, client id is: " + m_clientID);
             }
         } catch (IOException ex) {
             Logger.getLogger(NewConHandler.class.getName()).log(Level.SEVERE, null, ex);
