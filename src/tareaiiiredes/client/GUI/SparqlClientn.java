@@ -177,42 +177,21 @@ public class SparqlClientn extends javax.swing.JFrame {
             client.run();
         }catch(Exception e){}
         
-        if(client!=null&&client.GetSocketStatus()!=null&&client.GetSocketStatus().isConnected()){
+        if(client!=null && client.GetSocketStatus()!=null && client.GetSocketStatus().isConnected())
+        {
             String query = mqueryTextArea.getText();
-            long startTime;
-            long totalTime=0;
-            startTime = System.currentTimeMillis();
-            String resultado=client.sendRequest(mEndpointTextField.getText(),query,jComboBox2.getSelectedItem().toString());
+            long startTime = System.currentTimeMillis();
+            long totalTime = 0;
             
-            //Pedir respuesta al sevidor
+            // Pedir respuesta al sevidor (entrega un string en el formato pedido)
+            String resultado = client.sendRequest(mEndpointTextField.getText(), query, jComboBox2.getSelectedItem().toString());
+            
+            // Calcular tiempo total
             totalTime = System.currentTimeMillis() - startTime;
-            SparqlOutput outputwindow = new SparqlOutput(mEndpointTextField.getText(),query,totalTime,resultado);
+            
+            // Mostrar ventana con el resultado
+            SparqlOutput outputwindow = new SparqlOutput(mEndpointTextField.getText(), query, totalTime, resultado);
             outputwindow.setVisible(true);
-            /*
-            String query = mqueryTextArea.getText();
-            ResultSet rs=null;
-            ResultSet rscopy=null;
-            long startTime;
-            long totalTime=0;
-            try {
-                startTime = System.currentTimeMillis();
-                rs = QueryRemoteSparql.getResults(host, query);
-                rscopy=  QueryRemoteSparql.getResults(host, query);
-                totalTime = System.currentTimeMillis() - startTime;
-            } 
-            catch (Exception e1) {
-                System.out.println("---INICIO Mensaje de excepción---");
-                System.console().printf(e1.toString());
-                System.out.println("---FIN Mensaje de excepción---");
-            }
-            if(rs != null)
-            {
-                SparqlOutput outputwindow = new SparqlOutput(host,query,totalTime,rs,rscopy,jComboBox2.getSelectedItem().toString());
-                outputwindow.setVisible(true);
-            }
-            else
-                System.out.println("ResultSet vacío.");
-            */
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
