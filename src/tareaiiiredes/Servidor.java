@@ -16,28 +16,29 @@ public class Servidor {
     ServerSocket SS;
     Socket NewCon = null;
     int port = 8003;
-    int id=-1;
+    int id = -1;
     
     public void run() throws IOException
     {
-        // open server socket
+        // Abrir socket de servidor
         
         try {
             SS = new ServerSocket(port); 
         } catch (IOException e) {
-            System.err.println("Could not start server: " + e);
+            System.err.println("No se pudo iniciar el servidor: " + e);
             System.exit(-1);
         }
-        System.out.println("FileServer accepting connections on port " + port);
+        System.out.println("Servidor HTTP aceptando conexiones en el puerto: " + port);
         
-         // request handler loop
+         // Loop de request handlers
         while (true) {
             
             try {
-                // wait for request
+                // Esperar un request
                 NewCon = SS.accept();
+                
+                // Manejar la conexión en un nuevo thread
                 new Thread(new NewConHandler(NewCon, id++)).start();
-                    
             }
             finally{}   
         }

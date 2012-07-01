@@ -184,8 +184,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane2" alignment="0" pref="381" max="32767" attributes="0"/>
-                          <Component id="jButtonCopiarPortapapeles" alignment="0" pref="381" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="1" pref="381" max="32767" attributes="0"/>
+                          <Component id="jButtonCopiarPortapapeles" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -195,9 +195,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="291" max="32767" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButtonCopiarPortapapeles" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" pref="316" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jButtonCopiarPortapapeles" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>

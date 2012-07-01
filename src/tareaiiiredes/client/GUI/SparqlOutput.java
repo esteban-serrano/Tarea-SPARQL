@@ -32,30 +32,6 @@ public class SparqlOutput extends javax.swing.JFrame {
         this.totalTime = time;
         initComponents();
     }
-/*
-    private String resultToString(){
-       ByteArrayOutputStream so = new ByteArrayOutputStream();
-       
-       if(this.format.equals("CSV")){
-            ResultSetFormatter.outputAsCSV(so,rscopy);
-       }
-       else if(this.format.equals("XML")){
-           ResultSetFormatter.outputAsXML(so,rscopy);
-       }
-       else if(this.format.equals("TSV")){
-           ResultSetFormatter.outputAsTSV(so, rscopy);
-       }
-       else if(this.format.equals("RDF/XML")){
-           ResultSetFormatter.outputAsRDF(so,format, rscopy);    
-       }
-       else if(this.format.equals("JSON")){
-           ResultSetFormatter.outputAsJSON(so, rscopy);
-       }
-       
-       String s = so.toString();
-       return s;
-       }
-    */
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -165,17 +141,17 @@ public class SparqlOutput extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelResultadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                    .addComponent(jButtonCopiarPortapapeles, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addComponent(jButtonCopiarPortapapeles))
                 .addContainerGap())
         );
         jPanelResultadosLayout.setVerticalGroup(
             jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelResultadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonCopiarPortapapeles, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonCopiarPortapapeles)
                 .addContainerGap())
         );
 
