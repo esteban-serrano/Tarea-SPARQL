@@ -32,6 +32,10 @@ public class SparqlClientn extends javax.swing.JFrame {
                     +"WHERE {?pais rdf:type <http://dbpedia.org/ontology/Country>}"
                 );
         mEndpointTextField.setText("http://dbpedia.org/sparql");
+        
+        mEndpointServerIPTextField1.setText("127.0.0.1");
+        jTextFieldPort.setText("8003");
+        
         ipanel p= new ipanel("CFMatrix.jpg");
         this.add(p,BorderLayout.CENTER);
         
