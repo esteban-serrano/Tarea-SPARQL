@@ -123,7 +123,7 @@ public class NewConHandler implements Runnable {
                         }
                     }
                     
-                    if (misc.substring(0, misc.indexOf(':')).toLowerCase().equals("content-type"))
+                    if (misc.length()>0 && misc.indexOf(':')!= -1&& misc.substring(0, misc.indexOf(':')).toLowerCase().equals("content-type"))
                     {
                         int indexOfFirstSlash = misc.indexOf('/');
                         format = misc.substring(indexOfFirstSlash + 1);
