@@ -51,6 +51,7 @@ public class NewConHandler implements Runnable {
             out.write("\r\n");
             out.write(body);
             out.write("\r\n");
+            out.flush();
         } catch (Exception e) {
         }
     }
@@ -147,7 +148,7 @@ public class NewConHandler implements Runnable {
                     }
                     i++;
                 }
-            } else if (request.substring(0, 2).equals("GET")) {
+            } else if (request.substring(0, 3).equals("GET")) {
                 System.out.println("Mensaje GET recibido, client id is: " + m_clientID);
             }
         } catch (IOException ex) {
