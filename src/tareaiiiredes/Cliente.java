@@ -39,41 +39,49 @@ public class Cliente {
         return socket;
     } 
     
-    public void sendmessage(String dir,String msg,String format)
+    public String sendRequest(String dir, String msg, String format)
     {
         String mensajeRespuesta = "No se ha recibido la respuesta.";
         
         try {
-            // Construct data
+            BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
+            
+            // Codificar la consulta
             String data = URLEncoder.encode(msg, "UTF-8");
-
 
             //InetAddress addr = InetAddress.getByName(host);
 
-            // Send header
-            BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
+            // Agregar request
             wr.write("POST "+dir+" HTTP/1.0\r\n");
+            
+            // Agregar encabezados
             wr.write("Content-Length: "+data.length()+"\r\n");
             wr.write("Content-Type: text/"+format+"\r\n");
             wr.write("\r\n");
+            
+            // Agregar cuerpo
             wr.write(data);
             wr.write("\r\n");
 
-            // Agregamos data
-
+            // Enviar
             wr.flush();
 
-            // Get response
+            
+            // Obtener respuesta
             BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             mensajeRespuesta = this.getMessage(rd);
             
+            // Cerrar los buffered r/w
             wr.close();
             rd.close();
         }
         catch (Exception e)
         {
-            
+            System.out.println("Excepción en String sendRequest en Cliente:");
+            System.out.println(e.getMessage());
         }
+        
+        return mensajeRespuesta;
     }
     
     private String getMessage(BufferedReader br)
