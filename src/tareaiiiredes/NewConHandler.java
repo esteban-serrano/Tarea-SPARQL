@@ -75,10 +75,11 @@ public class NewConHandler implements Runnable {
     @Override
     public void run() {
         BufferedReader in = null;
+        BufferedWriter out = null;
         try {
             in = new BufferedReader(new InputStreamReader(m_connection.getInputStream()));
             //OutputStream out =  new BufferedOutputStream(m_connection.getOutputStream());
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(m_connection.getOutputStream(), "UTF8"));
+            out = new BufferedWriter(new OutputStreamWriter(m_connection.getOutputStream(), "UTF8"));
             //PrintStream pout =  new PrintStream(out);
 
             // read first line of request (ignore the rest)
@@ -144,6 +145,7 @@ public class NewConHandler implements Runnable {
         } finally {
             try {
                 in.close();
+                out.close();
             } catch (IOException ex) {
                 Logger.getLogger(NewConHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
