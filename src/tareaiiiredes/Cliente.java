@@ -113,8 +113,9 @@ public class Cliente {
                     {
                         // Acumular las líneas de la respuesta HTTP
                         builder.append(line).append("\r\n");
+                        blankLineCounter++;
                     }
-                    else if (blankLineCounter == 2)
+                    if (blankLineCounter == 2)
                     {
                         // Indicador de final de la respuesta
                         break;
