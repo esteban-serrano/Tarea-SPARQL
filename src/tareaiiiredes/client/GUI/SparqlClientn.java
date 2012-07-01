@@ -182,7 +182,7 @@ public class SparqlClientn extends javax.swing.JFrame {
             long startTime;
             long totalTime=0;
             startTime = System.currentTimeMillis();
-            client.sendmessage(mEndpointTextField.toString(),query,jComboBox2.getSelectedItem().toString());
+            client.sendmessage(mEndpointTextField.getText(),query,jComboBox2.getSelectedItem().toString());
             String resultados="";
             //Pedir respuesta al sevidor
             totalTime = System.currentTimeMillis() - startTime;
