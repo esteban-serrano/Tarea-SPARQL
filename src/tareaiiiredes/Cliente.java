@@ -69,7 +69,7 @@ public class Cliente {
             
             // Obtener respuesta
             BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            mensajeRespuesta = this.getMessage(rd);
+            mensajeRespuesta = URLDecoder.decode(this.getMessage(rd), "UTF-8");
             
             // Cerrar los buffered r/w
             wr.close();
