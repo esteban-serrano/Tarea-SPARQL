@@ -39,7 +39,7 @@ public class NewConHandler implements Runnable {
         try {
             rs = qexec.execSelect();
         } catch (Exception e) {
-            System.out.println("Excepción en ResultSet QueryRemoteSparql.ResultSet en NewConHandler, client id: " + m_clientID + ":");
+            System.out.println("Excepción en ResultSet getQueryResults en NewConHandler, client id: " + m_clientID + ":");
             System.out.printf(e.toString());
         }
         return rs;

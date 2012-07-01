@@ -41,6 +41,8 @@ public class Cliente {
     
     public void sendmessage(String dir,String msg,String format)
     {
+        String mensajeRespuesta = "No se ha recibido la respuesta.";
+        
         try {
             // Construct data
             String data = URLEncoder.encode(msg, "UTF-8");
@@ -63,13 +65,63 @@ public class Cliente {
 
             // Get response
             BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String line;
-            while ((line = rd.readLine()) != null) {
-                // Process line...
-            }
+            mensajeRespuesta = this.getMessage(rd);
+            
             wr.close();
             rd.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
+            
+        }
+    }
+    
+    private String getMessage(BufferedReader br)
+    {
+        try{
+            String line = br.readLine();
+            
+            int indexPrimerEspacio = line.indexOf(' ');
+            int indexSegundoEspacio = line.indexOf(' ', indexPrimerEspacio + 1);
+            
+            int statusCode = Integer.parseInt(line.substring(indexPrimerEspacio + 1, indexSegundoEspacio));
+            
+            if(statusCode != 200)
+            {
+                return "Error al recibir la respuesta. Código HTTP: " + statusCode;
+            }
+            else
+            {
+                int i = 1;
+                int blankLineCounter = 0;
+                StringBuilder builder = new StringBuilder();
+                
+                while ((line = br.readLine()) != null)
+                {
+                    // Se ignoran los headers
+                    if (line.length() == 0)
+                        blankLineCounter++;
+                    else if (blankLineCounter == 1)
+                    {
+                        // Acumular las líneas de la respuesta HTTP
+                        builder.append(line).append("\r\n");
+                    }
+                    else if (blankLineCounter == 2)
+                    {
+                        // Indicador de final de la respuesta
+                        break;
+                    }
+                    i++;
+                    System.out.println("[i = " + i + "]\t" + line);
+                }
+                
+                return builder.toString();
+            }
+        }
+        catch(Exception e){
+            System.out.println("Excepción en String getMessage en Cliente:");
+            System.out.println(e.getMessage());
+            return "Error al recibir la respuesta.";
         }
     }
 }
