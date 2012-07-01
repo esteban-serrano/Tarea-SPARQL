@@ -35,10 +35,6 @@ public class SparqlClientn extends javax.swing.JFrame {
         
         mEndpointServerIPTextField1.setText("127.0.0.1");
         jTextFieldPort.setText("8003");
-        
-        ipanel p= new ipanel("CFMatrix.jpg");
-        this.add(p,BorderLayout.CENTER);
-        
     }
    
     /**
@@ -68,10 +64,8 @@ public class SparqlClientn extends javax.swing.JFrame {
         setTitle("Cliente Sparql");
         setResizable(false);
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Sitio web con soporte SPARQL");
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Consulta SPARQL:");
 
         mqueryTextArea.setColumns(20);
@@ -79,7 +73,6 @@ public class SparqlClientn extends javax.swing.JFrame {
         jScrollPane1.setViewportView(mqueryTextArea);
         mqueryTextArea.getAccessibleContext().setAccessibleName("queryTextArea");
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Formato del output:");
 
         jButton1.setText("Enviar");
@@ -95,10 +88,8 @@ public class SparqlClientn extends javax.swing.JFrame {
         jComboBox2.addItem("TSV");
         jComboBox2.addItem("XML");
 
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Puerto:");
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Dirección IP del servidor:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
