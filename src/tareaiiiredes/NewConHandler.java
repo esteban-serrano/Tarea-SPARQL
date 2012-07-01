@@ -33,18 +33,6 @@ public class NewConHandler implements Runnable {
 
     }
 
-    private ResultSet getQueryResults(String host, String query) {
-        ResultSet rs = null;
-        QueryExecution qexec = QueryExecutionFactory.sparqlService(host, query);
-        try {
-            rs = qexec.execSelect();
-        } catch (Exception e) {
-            System.out.println("Excepción en ResultSet getQueryResults en NewConHandler, client id: " + m_clientID + ":");
-            System.out.printf(e.toString());
-        }
-        return rs;
-    }
-
     private void sendHTTP200OKResponse(BufferedWriter out, String body) {
         try {
             out.write("HTTP/1.1 200 OK\r\n");
@@ -135,7 +123,7 @@ public class NewConHandler implements Runnable {
                         
                         // Se asume que por la codificacion (URLEncoded) está todo en una línea
                         misc = URLDecoder.decode(misc, "UTF-8");
-                        ResultSet r = this.getQueryResults(host, misc);
+                        ResultSet r = QueryRemoteSparql.getResults(host, misc);
 
                         if (r == null) {
                             this.sendHTTP500InternalServerErrorResponse(out);
