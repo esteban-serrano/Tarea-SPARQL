@@ -119,10 +119,10 @@ public class Cliente {
                         // Indicador de final de la respuesta
                         break;
                     }
-                    i++;
                     System.out.println("[i = " + i + "]\t" + line);
+                    i++;
                 }
-                
+                br.close();
                 return builder.toString();
             }
         }
